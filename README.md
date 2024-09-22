@@ -51,47 +51,12 @@ To be able to fully implement a feature on a public repository in a completely a
 
 ## **Usage** 💻
 
-Run the command in any project folder to instantly generate the structure and start using AI-powered commands.
+Go to the folder where you want to start working and run:
 
 ```bash
-fulcon --generate
+cortesh
 ```
 
-### Example
-
-```bash
-$ fulcon
-🌟 Good day there! What can I help you with today?
-🗣 I want to create a todo webapp.
-
-🌟 Sure thing! How does this sound?
-  🚀React redux webapp.   
-🗣 Sounds good!
-
-📁 Creating directory: /todo-web-app
-📁 Adding dependency: express body-parser
-📁 Adding dependency: nodemon
-
-📄 Writing app.js
-📁 Creating directory: /todo-web-app/views
-📁 Creating directory: /todo-web-app/public
-📄 Writing public/style.css
-🎉 Done! Your project is ready to go!
-```
-
-## **Documentation** 📚
-
-### Command Line Options
-
-| Command             | Description                                      |
-|---------------------|--------------------------------------------------|
-| `fulcon --generate` | Generates the folder and essential project files |
-| `fulcon --reset`    | Resets the memory for the current project.       |
-| `fulcon --version`  | Displays the current version of the tool         |
-
-For more detailed documentation, head over to the [full docs](#) (link to be added).
-
----
 
 ## **Contributing** 🤝
 
