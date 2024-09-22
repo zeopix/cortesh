@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "cortesh"
+version = "0.1.0"
+description = "Your AI Pair programmer."
+authors = ["Iván Guillén <hello@ivanguillen.me>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/zeopix/cortesh"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "2.28.1"
+numpy = "^1.21.0"
+langchain = "^0.3.0"
+
+python-dotenv = "^1.0.1"
+langchain-openai = "^0.2.0"
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+cortesh = "cortesh.cli:main"
