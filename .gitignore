@@ -2,3 +2,5 @@
 /.venv
 .python-version
 /logs/*
+.idea
+*/__pycache__/
