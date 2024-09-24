@@ -50,3 +50,9 @@ class FileIndexer:
 
     def close(self):
         self.conn.close()
+
+    def get_one(self):
+        cursor = self.conn.cursor()
+        cursor.execute('SELECT filename FROM files WHERE indexed = 0 LIMIT 1')
+        filename = cursor.fetchone()[0]
+        return filename

@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv, set_key
 from langchain_openai import ChatOpenAI
-
+from cortesh.interface.llm import LLM
 from cortesh.config import Config
 from cortesh.learn.learn import Learn
 from cortesh.process.process import Process
@@ -54,9 +54,9 @@ def index():
     folders = input("> ")
     print("which extensions do you want to index? use asterisk for all, or comma separated values.")
     extensions = input("> ")
-
+    newllm = LLM()
     config = Config()
     config.set_folders(folders)
     config.set_extensions(extensions)
-    learn = Learn(llm, Logger(), config)
+    learn = Learn(newllm, Logger(), config)
     learn.index()

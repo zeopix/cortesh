@@ -99,7 +99,7 @@ The steps should be provided in the exact order they should be executed. Ensure 
             {prompt}
             """
         )
-        #chain = LLMChain(llm=self.llm, prompt=template)
+        #chain = LLMChain(llm.py=self.llm.py, prompt=template)
         #response = chain.run(prompt=prompt)
         final_prompt = template.format(prompt=prompt)
         self.logger.log('- Prompt')
