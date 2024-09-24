@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv, set_key
 from langchain_openai import ChatOpenAI
 
-from cortesh.brain.process import Process
+from cortesh.config import Config
+from cortesh.learn.learn import Learn
+from cortesh.process.process import Process
 from cortesh.interface.logger import Logger
 
 
@@ -26,6 +28,12 @@ setup_api_key()
 llm = initialize_langchain()
 
 def main():
+    # check if any arg is present, if '--index' is present, index the folders and extensions
+    import sys
+    for arg in sys.argv:
+        if arg == '--index':
+            index()
+            return
     print("Welcome to cortesh! Your AI pair programmer.")
     print("Enter your requests (type 'exit' to quit):")
     process = Process(llm, Logger())
@@ -35,3 +43,20 @@ def main():
             print("Goodbye!")
             break
         outputs = process.input(user_request)
+
+
+def index():
+    #Check if there is a .cortesh folder, if not create it
+    if not os.path.exists('.cortesh'):
+        os.mkdir('.cortesh')
+    #check if there is an existing index.toml file, if so, ask if they want to overwrite it
+    print("which folders do you want to index? use asterisk for all, or comma separated values.")
+    folders = input("> ")
+    print("which extensions do you want to index? use asterisk for all, or comma separated values.")
+    extensions = input("> ")
+
+    config = Config()
+    config.set_folders(folders)
+    config.set_extensions(extensions)
+    learn = Learn(llm, Logger(), config)
+    learn.index()

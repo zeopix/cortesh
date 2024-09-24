@@ -1,5 +1,5 @@
-from cortesh.brain.output.error import Error
-from cortesh.brain.output.output import Output
+from cortesh.process.output.error import Error
+from cortesh.process.output.output import Output
 import os
 
 class CreateFile(Output):

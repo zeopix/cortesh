@@ -1,15 +1,15 @@
 from langchain_core.prompts import PromptTemplate
 
-from cortesh.brain.logic.base import Logic
-from cortesh.brain.output.command import Command
-from cortesh.brain.output.create_file import CreateFile
-from cortesh.brain.output.message import Message
+from cortesh.process.logic.base import Logic
+from cortesh.process.output.command import Command
+from cortesh.process.output.create_file import CreateFile
+from cortesh.process.output.message import Message
 import json
 import re
 
-from cortesh.brain.sense.command_response import CommandResponse
-from cortesh.brain.sense.file_content import FileContent
-from cortesh.brain.sense.folder_structure import FolderStructure
+from cortesh.process.sense.command_response import CommandResponse
+from cortesh.process.sense.file_content import FileContent
+from cortesh.process.sense.folder_structure import FolderStructure
 
 
 class FolderProject(Logic):

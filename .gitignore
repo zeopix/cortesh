@@ -3,4 +3,4 @@
 .python-version
 /logs/*
 .idea
-*/__pycache__/
+**/__pycache__

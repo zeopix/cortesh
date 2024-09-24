@@ -1,13 +1,10 @@
-from socket import send_fds
 
-from cortesh.brain.logic.folder_project import FolderProject
-from cortesh.brain.output.message import Message
-
-
-class Learn:
-    def __init__(self, llm, logger):
+class Learn():
+    def __init__(self, llm, logger, config):
         self.llm = llm
         self.logger = logger
+        self.config = config
 
-    def input(self, prompt):
+    def index(self):
+        pass
 

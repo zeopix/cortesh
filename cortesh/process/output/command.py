@@ -1,6 +1,6 @@
-from cortesh.brain.output.error import Error
-from cortesh.brain.output.message import Message
-from cortesh.brain.output.output import Output
+from cortesh.process.output.error import Error
+from cortesh.process.output.message import Message
+from cortesh.process.output.output import Output
 
 
 class Command(Output):

@@ -1,4 +1,4 @@
-from cortesh.brain.sense.sense import Sense
+from cortesh.process.sense.sense import Sense
 
 
 class FileContent(Sense):

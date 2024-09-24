@@ -1,4 +1,4 @@
-from cortesh.brain.output.output import Output
+from cortesh.process.output.output import Output
 
 
 class Error(Output):
