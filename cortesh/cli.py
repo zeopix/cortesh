@@ -50,13 +50,8 @@ def index():
     if not os.path.exists('.cortesh'):
         os.mkdir('.cortesh')
     #check if there is an existing index.toml file, if so, ask if they want to overwrite it
-    print("which folders do you want to index? use asterisk for all, or comma separated values.")
-    folders = input("> ")
-    print("which extensions do you want to index? use asterisk for all, or comma separated values.")
-    extensions = input("> ")
+    
     newllm = LLM()
     config = Config()
-    config.set_folders(folders)
-    config.set_extensions(extensions)
     learn = Learn(newllm, Logger(), config)
     learn.index()

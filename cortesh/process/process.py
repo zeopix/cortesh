@@ -1,6 +1,7 @@
 from socket import send_fds
 
 from cortesh.process.logic.folder_project import FolderProject
+from cortesh.process.logic.knowledge import Knowledge
 from cortesh.process.output.message import Message
 
 
@@ -13,6 +14,7 @@ class Process:
 
     def input(self, prompt):
         classes = [
+            Knowledge(self.llm, self.logger),
             FolderProject(self.llm, self.logger),
         ]
 

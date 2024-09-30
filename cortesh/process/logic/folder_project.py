@@ -84,7 +84,7 @@ The steps should be provided in the exact order they should be executed. Ensure 
             return [Message("Sorry, I cannot create this project.")]
 
         return [
-            Message("Creating a new project..."),
+            Message("Working in folder project..."),
             *parsed_data
         ]
 
