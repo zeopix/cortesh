@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import time
-
+import random
 class Indexer:
     def __init__(self, db_path, root_folders, extensions):
         self.db_path = db_path
@@ -22,6 +22,13 @@ class Indexer:
                     summary TEXT
                 )
             ''')
+    def get_one_random(self):
+        unindexed_files = self.get_unindexed()
+        if not unindexed_files:
+            return None, None
+        filename, memoryAddress = random.choice(unindexed_files)
+        
+        return filename, memoryAddress
 
     def index_files(self):
         for root in self.root_folders:
@@ -114,4 +121,10 @@ class Indexer:
         cursor = self.conn.cursor()
         cursor.execute('SELECT filename FROM files WHERE indexed = 0')
         count = len(cursor.fetchall())
+        return count
+
+    def get_unindexed(self):
+        cursor = self.conn.cursor()
+        cursor.execute('SELECT filename, memoryAddress FROM files WHERE indexed = 0 LIMIT 200')
+        count = cursor.fetchall()
         return count
