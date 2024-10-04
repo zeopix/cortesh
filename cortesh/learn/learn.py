@@ -1,4 +1,4 @@
-from cortesh.learn import FileIndexer
+from cortesh.learn.indexer import Indexer
 from cortesh.learn.reader.git import GitReader
 from cortesh.process.memory.memory import Memory
 
@@ -8,7 +8,7 @@ class Learn():
         self.llm = llm
         self.logger = logger
         self.config = config
-        self.indexer = FileIndexer(config.db_path, config.folders, config.extensions)
+        self.indexer = Indexer(config.db_path, config.folders, config.extensions)
         self.reader = GitReader(llm)
         self.memory = Memory('git')
 
@@ -40,3 +40,6 @@ class Learn():
     def updateProgress(self):
     
         self.logger.log('Remaining: ' + str(self.indexer.count_unindexed()) + ' files to process')
+
+    def explore(self):
+        # implement

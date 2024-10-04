@@ -78,7 +78,7 @@ The steps should be provided in the exact order they should be executed. Ensure 
         response = self.logged_llm(final_prompt)
 
         try:
-            parsed_data = self.parse_response(response.content)
+            parsed_data = self.parse_response(response)
         except Exception as e:
             print(e)
             return [Message("Sorry, I cannot create this project.")]
@@ -91,26 +91,31 @@ The steps should be provided in the exact order they should be executed. Ensure 
         pass
 
     def test(self, prompt):
-        return True
+        
         template = PromptTemplate(
             input_variables=["prompt"],
             template="""
-            Is the following user request, asking to create a new project, or update a feature in a existing one, that can be achieved trough running command lines and creating source files? Please print the output as true or false.
+            Is the following user request, asking to create a new project, or update a feature in a existing one, 
+            that can be achieved trough running command lines and creating source files? Please print the output as true or false.
+
+            Note, if the user is only asking a question about the project, that does not require changes or updates, it should be considered as false. 
+            Even that it requires to read files or run some command to provide the answer.
+
             {prompt}
             """
         )
+        
         #chain = LLMChain(llm.py=self.llm.py, prompt=template)
         #response = chain.run(prompt=prompt)
         final_prompt = template.format(prompt=prompt)
-        self.logger.log('- Prompt')
-        self.logger.log(final_prompt)
-        response = self.llm(final_prompt)
-        self.logger.log('- Response')
+        response = self.llm.invoke(final_prompt)
+        print('- Response')
+        print(response)
 
         result = False
         try:
             # cast to boolean
-            result = response.content.strip().lower() == 'true'
+            result = response.strip().lower() == 'true'
         except json.JSONDecodeError:
             # maybe log something
             return None
@@ -125,13 +130,14 @@ The steps should be provided in the exact order they should be executed. Ensure 
 
         final_prompt = promptTemplate.format(prompt=prompt, actions=self.get_prompt_actions(), actions_info=actions_info)
         response = self.logged_llm(final_prompt)
+        print('--response--')
 
         try:
-            extra_info = self.parse_actions(actions_info, response.content)
+            extra_info = self.parse_actions(actions_info, response)
 
             if extra_info and depth < 40:
                 return self.process(prompt, extra_info, depth+1)
-            parsed_data = self.parse_response(response.content)
+            parsed_data = self.parse_response(response)
         except Exception as e:
             print(e)
             return [Message("Sorry, I cannot create this project.")]
@@ -145,9 +151,9 @@ The steps should be provided in the exact order they should be executed. Ensure 
         # Get the structured output from the LLM
         self.logger.log('- Prompt')
         self.logger.log(final_prompt)
-        response = self.llm(final_prompt)
+        response = self.llm.invoke(final_prompt)
         self.logger.log('- Response')
-        self.logger.log(response.content)
+        self.logger.log(response)
         return response
 
     def parse_actions(self, actions_info, response):

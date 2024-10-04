@@ -14,8 +14,8 @@ class Process:
 
     def input(self, prompt):
         classes = [
-            Knowledge(self.llm, self.logger),
             FolderProject(self.llm, self.logger),
+            Knowledge(self.llm, self.logger),
         ]
 
         r = [Message("I'm sorry, I don't understand that request.")]

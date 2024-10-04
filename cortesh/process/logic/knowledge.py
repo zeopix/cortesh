@@ -20,7 +20,7 @@ class Knowledge(Logic):
         CommandResponse()
     ]
     templateSystem = """
-Prepare a prompt, optimized for querying the embeddings database, to search for the requested information in the project memory.
+Prepare a text query, optimized for querying the embeddings database, to search for the requested information in the project memory.
 Given the following user request: 
 """
     template = """
@@ -43,7 +43,7 @@ Given the following user request:
         response = self.logged_llm(final_prompt)
 
         try:
-            parsed_data = self.parse_response(response.content)
+            parsed_data = self.parse_response(response)
         except Exception as e:
             print(e)
             return [Message("Sorry, I cannot create this project.")]
@@ -69,13 +69,13 @@ Given the following user request:
         final_prompt = template.format(prompt=prompt)
         self.logger.log('- Prompt')
         self.logger.log(final_prompt)
-        response = self.llm(final_prompt)
+        response = self.llm.invoke(final_prompt)
         self.logger.log('- Response')
 
         result = False
         try:
             # cast to boolean
-            result = response.content.strip().lower() == 'true'
+            result = response.strip().lower() == 'true'
         except json.JSONDecodeError:
             # maybe log something
             return None
@@ -87,7 +87,7 @@ Given the following user request:
         memory = Memory('git')
         print('Ask:', prompt)
         
-        prompt = self.llm(self.templateSystem + "\n" + prompt).content
+        prompt = self.llm.invoke(self.templateSystem + "\n" + prompt + "\n **Query for Embeddings Database:**")
 
         print('Search in embeddings: ', prompt)
         memoryEntries = memory.find(prompt)
@@ -117,7 +117,7 @@ Given the following user request:
         else:
             postprompt = postprompt + "No files were found in the project with the requested information. Return a message to inform the user.\n\n"
 
-        postresponse = self.llm(postprompt).content
+        postresponse = self.llm.invoke(postprompt)
 
         return [Message(postresponse)]
         promptTemplate = PromptTemplate(
@@ -129,11 +129,11 @@ Given the following user request:
         response = self.logged_llm(final_prompt)
 
         try:
-            extra_info = self.parse_actions(actions_info, response.content)
+            extra_info = self.parse_actions(actions_info, response)
 
             if extra_info and depth < 40:
                 return self.process(prompt, extra_info, depth+1)
-            parsed_data = self.parse_response(response.content)
+            parsed_data = self.parse_response(response)
         except Exception as e:
             print(e)
             return [Message("Sorry, I cannot create this project.")]
@@ -149,7 +149,7 @@ Given the following user request:
         self.logger.log(final_prompt)
         response = self.llm(final_prompt)
         self.logger.log('- Response')
-        self.logger.log(response.content)
+        self.logger.log(response)
         return response
 
     def parse_actions(self, actions_info, response):

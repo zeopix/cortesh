@@ -2,7 +2,7 @@ import os
 import sqlite3
 import time
 
-class FileIndexer:
+class Indexer:
     def __init__(self, db_path, root_folders, extensions):
         self.db_path = db_path
         self.root_folders = root_folders

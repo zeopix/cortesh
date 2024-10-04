@@ -25,7 +25,7 @@ def initialize_langchain():
 
 
 setup_api_key()
-llm = initialize_langchain()
+llm = LLM()
 
 def main():
     # check if any arg is present, if '--index' is present, index the folders and extensions
@@ -55,3 +55,13 @@ def index():
     config = Config()
     learn = Learn(newllm, Logger(), config)
     learn.index()
+
+
+def explore():
+    if not os.path.exists('.cortesh'):
+        os.mkdir('.cortesh')
+    #check if there is an existing index.toml file, if so, ask if they want to overwrite it
+    newllm = LLM()
+    config = Config()
+    learn = Learn(newllm, Logger(), config)
+    learn.explore()
