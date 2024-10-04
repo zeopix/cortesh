@@ -25,8 +25,10 @@
 - [x] [ Output ] Write files and run commands from LLM answers.
 - [x] [ Logic ] Feedback loop for command outputs. Flow control. 
 - [x] [ Sense ] Read current files and project structure, flow control by LLM.
-- [ ] [ Memory ] Generate embeddings on curent project structure, include GIT/LLM generated descriptions.
+- [x] [ Memory ] Generate embeddings on curent project structure, include GIT/LLM generated descriptions.
 - [ ] [ Logic ] Use the memory embedidngs in flow control
+- [ ] [ Memory ] Parallel requests.
+- [ ] [ FlowControl ] Refactor sense/output, to be generic among knowledge/folder_structure, or any other command...
 - [ ] Some kind of testing...
 
 
@@ -35,6 +37,20 @@
 
 ```bash
 pip install cortesh
+```
+
+## **Usage** 💻
+
+For an existing project, it's recommended that you first index your poject knowledge:
+```bash
+cortesh --index
+```
+
+This will generate a configuration file and store the embeddings in ``.cortesh`` folder.
+
+Go to the folder where you want to start working and run:
+```bash
+cortesh
 ```
 
 ## **GOAL** 🎯
@@ -48,15 +64,6 @@ To be able to fully implement a feature on a public repository in a completely a
 
 
 ---
-
-## **Usage** 💻
-
-Go to the folder where you want to start working and run:
-
-```bash
-cortesh
-```
-
 
 ## **Contributing** 🤝
 
