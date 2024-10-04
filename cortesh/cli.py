@@ -34,6 +34,9 @@ def main():
         if arg == '--index':
             index()
             return
+        if arg == '--explore':
+            explore()
+            return
     print("Welcome to cortesh! Your AI pair programmer.")
     print("Enter your requests (type 'exit' to quit):")
     process = Process(llm, Logger())

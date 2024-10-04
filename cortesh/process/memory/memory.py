@@ -26,7 +26,6 @@ class Memory:
         uuid = str(uuid4())
         print('-adding document-')
         print(key)
-        print(value)
         document = Document( page_content=value, metadata={"key": key}, id=uuid, )
         self.store.add_documents(documents=[document], ids=[uuid])
         return uuid
@@ -40,8 +39,8 @@ class Memory:
         
         results = self.store.similarity_search_with_score(query=query,k=1)
         filteredResults = []
-        for doc in results:
-            if doc is None  or 'metadata' not in doc:
+        for doc, score in results:
+            if doc is None  or doc.metadata is None:
                 next
             
             filteredResults.append(doc)

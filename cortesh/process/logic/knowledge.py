@@ -95,14 +95,16 @@ Given the following user request:
         filteredMemoryEntries = []
         
         for entry in memoryEntries:
-            metadata = entry[0]
-            page_content = entry[1]
+            metadata = entry.metadata
+            page_content = entry.page_content
             if 'key' in metadata:
                 entryText = 'Memory entry file: \n' + metadata['key'] + "\n\n Memory entry description: \n" + page_content + '\n\n -------- \n\n'
-                print('Memory entry key:', metadata['key'])
+                print(' - Memory entry key:', metadata['key'])
+                # open file
+                content = open(metadata['key'], 'r').read()
+                entryText = entryText + 'File content: \n' + content + '\n\n -------- \n\n'
                 filteredMemoryEntries.append(entryText)
         
-        print('Memory entries:', filteredMemoryEntries)
         postprompt = (
             "The user has requested the following: " + prompt + "\n\n"
             "Knowing that there is a database of embeddings containing summaries of each file of the project. \n"

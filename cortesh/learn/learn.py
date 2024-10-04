@@ -1,7 +1,7 @@
 from cortesh.learn.indexer import Indexer
 from cortesh.learn.reader.git import GitReader
 from cortesh.process.memory.memory import Memory
-
+from cortesh.learn.explore import Explorer
 
 class Learn():
     def __init__(self, llm, logger, config):
@@ -27,19 +27,32 @@ class Learn():
         embeddingText = self.reader.read(filename)
         print('embeddingText')
         print(embeddingText)
-        self.indexer.save_summary( filename, embeddingText )
+        self.indexer.save_summary(filename, embeddingText)
         if not memoryAddress:
-            memoryAddress = self.memory.add(filename, embeddingText )
+            memoryAddress = self.memory.add(filename, embeddingText)
         else:
-            memoryAddress = self.memory.update( memoryAddress, filename, embeddingText )
-        self.indexer.save_memory_address( filename, memoryAddress )
-        self.indexer.update_index( filename, True )
+            memoryAddress = self.memory.update(memoryAddress, filename, embeddingText)
+        self.indexer.save_memory_address(filename, memoryAddress)
+        self.indexer.update_index(filename, True)
         self.updateProgress()
         self.process()
 
     def updateProgress(self):
-    
         self.logger.log('Remaining: ' + str(self.indexer.count_unindexed()) + ' files to process')
 
     def explore(self):
-        # implement
+        explorer = Explorer()
+        while True:
+            action = input("Choose an action: load, display, clear, exit: ")
+            if action == "load":
+                explorer.load_data()
+                print("Data loaded.")
+            elif action == "display":
+                explorer.display_data()
+            elif action == "clear":
+                explorer.clear_data()
+                print("Data cleared.")
+            elif action == "exit":
+                break
+            else:
+                print("Invalid action. Please choose again.")
