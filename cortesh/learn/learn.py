@@ -2,6 +2,7 @@ from cortesh.learn.indexer import Indexer
 from cortesh.learn.reader.git import GitReader
 from cortesh.process.memory.memory import Memory
 from cortesh.learn.explore import Explorer
+from tqdm import tqdm
 
 class Learn():
     def __init__(self, llm, logger, config):
@@ -13,7 +14,9 @@ class Learn():
         self.memory = Memory('git')
 
     def index(self):
-        self.indexer.index_files()
+        total_files = self.indexer.count_unindexed()
+        with tqdm(total=total_files, desc='Indexing Files', unit='file') as pbar:
+            self.indexer.index_files(pbar)
         self.process()
 
     def verify_index(self):
@@ -25,8 +28,6 @@ class Learn():
         if not filename:
             return
         embeddingText = self.reader.read(filename)
-        print('embeddingText')
-        print(embeddingText)
         self.indexer.save_summary(filename, embeddingText)
         if not memoryAddress:
             memoryAddress = self.memory.add(filename, embeddingText)
@@ -38,7 +39,8 @@ class Learn():
         self.process()
 
     def updateProgress(self):
-        self.logger.log('Remaining: ' + str(self.indexer.count_unindexed()) + ' files to process')
+        remaining_files = self.indexer.count_unindexed()
+        self.logger.log('Remaining: ' + str(remaining_files) + ' files to process')
 
     def explore(self):
         explorer = Explorer()
