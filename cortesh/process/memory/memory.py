@@ -24,8 +24,6 @@ class Memory:
 
     def add(self, key, value):
         uuid = str(uuid4())
-        print('-adding document-')
-        print(key)
         document = Document( page_content=value, metadata={"key": key}, id=uuid, )
         self.store.add_documents(documents=[document], ids=[uuid])
         return uuid
@@ -37,7 +35,7 @@ class Memory:
 
     def find(self, query):
         
-        results = self.store.similarity_search_with_score(query=query,k=1)
+        results = self.store.similarity_search_with_score(query=query,k=20)
         filteredResults = []
         for doc, score in results:
             if doc is None  or doc.metadata is None:

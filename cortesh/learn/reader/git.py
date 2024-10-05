@@ -30,7 +30,7 @@ class GitReader():
         blame_output = os.popen(command).read()
         # now use git log to get the commit names
         commit_hashes = self.get_commit_hashes(blame_output)
-        print('--- Commit hashes ---', commit_hashes)
+        # print('--- Commit hashes ---', commit_hashes)
         commit_names = self.get_commit_names(commit_hashes)
         if commit_names == []:
             return 'Not commited.'
@@ -51,9 +51,7 @@ class GitReader():
         commit_names = []
         for commit in commit_hashes:
             command = 'git --no-pager log -1 --pretty=format:"%s" ' + commit
-            print('--- Running command ---', command)
             commit_name = os.popen(command).read()
             commit_name = commit + ' ' + commit_name
             commit_names.append(commit_name)
-            print('--- Commit name ---', commit_name)
         return commit_names

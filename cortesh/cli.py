@@ -1,9 +1,8 @@
 import os
 from dotenv import load_dotenv, set_key
-from langchain_openai import ChatOpenAI
 from cortesh.interface.llm import LLM
 from cortesh.config import Config
-from cortesh.learn.learn import Learn
+from cortesh.learn.learn_parallel import LearnParallel
 from cortesh.process.process import Process
 from cortesh.interface.logger import Logger
 
@@ -56,8 +55,10 @@ def index():
     
     newllm = LLM()
     config = Config()
-    learn = Learn(newllm, Logger(), config)
-    learn.index()
+    # learn = Learn(newllm, Logger(), config)
+    # learn.index()
+    learnParallel = LearnParallel(newllm, Logger(), config)
+    learnParallel.index()
 
 
 def explore():
