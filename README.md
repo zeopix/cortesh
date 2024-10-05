@@ -27,8 +27,9 @@
 - [x] [ Sense ] Read current files and project structure, flow control by LLM.
 - [x] [ Memory ] Generate embeddings on curent project structure, include GIT/LLM generated descriptions.
 - [ ] [ Logic ] Use the memory embedidngs in flow control
-- [ ] [ Memory ] Parallel requests.
-- [ ] [ FlowControl ] Refactor sense/output, to be generic among knowledge/folder_structure, or any other command...
+- [x] [ Memory ] Indexing parallel requests.
+- [ ] [ FlowControl ] Refactor sense/output, to be generic among knowledge/folder_structure, or any other command.
+- [ ] [ Sense ] Memory as a sense tool.
 - [ ] Some kind of testing...
 
 
